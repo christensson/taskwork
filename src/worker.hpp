@@ -7,6 +7,13 @@
 
 namespace taskwork
 {
+enum WorkerState
+{
+  WORKER_CREATED = 0,
+  WORKER_RUNNING = 1,
+  WORKER_EXITED = 2
+};
+
 class Worker
 {
 public:
@@ -19,8 +26,10 @@ public:
     return m_id;
   }
 private:
+  static void* threadMain(void*);
   pthread_t m_thread;
   int32_t m_id;
+  WorkerState m_state;
 };
 }  // namespace taskwork
 #endif
